@@ -106,8 +106,8 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/somas/apostrophe.git",
-          "tag": "2.2.0.1",
-          "commit": "ef3f1d34562d384c0702ad0d2dcff7b690784d3a"
+          "tag": "v2.2.0.2",
+          "commit": "d36e2ebf60f7f4f3167ac7b1dc12a7c1e4cd89c2"
         }
       ],
       "post-install": [
