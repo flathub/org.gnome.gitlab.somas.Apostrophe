@@ -3,6 +3,9 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.38",
   "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.haskell"
+    ],
   "command": "apostrophe",
   "finish-args": [
     "--socket=fallback-x11",
@@ -12,6 +15,9 @@
     "--filesystem=host",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
+  "only-arches": [
+        "x86_64"
+      ],
   "add-extensions": {
     "org.gnome.gitlab.somas.Apostrophe.Plugin": {
       "directory": "extensions",
@@ -39,8 +45,8 @@
       ],
       "buildsystem": "simple",
       "build-commands": [
-        "cp bin/pandoc /app/bin/pandoc",
-        "cp bin/pandoc-citeproc /app/bin/pandoc-citeproc"
+        "stack setup",
+        "stack install"
       ],
       "sources": [
         {
