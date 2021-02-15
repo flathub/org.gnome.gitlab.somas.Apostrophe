@@ -3,9 +3,6 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.38",
   "sdk": "org.gnome.Sdk",
-  "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.haskell"
-    ],
   "command": "apostrophe",
   "finish-args": [
     "--socket=fallback-x11",
@@ -45,8 +42,7 @@
       ],
       "buildsystem": "simple",
       "build-commands": [
-        "stack setup",
-        "stack install"
+        "install -Dm755 bin/pandoc /app/bin/pandoc"
       ],
       "sources": [
         {
