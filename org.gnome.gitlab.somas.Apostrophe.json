@@ -9,7 +9,7 @@
     "--socket=wayland",
     "--share=ipc",
     "--share=network",
-    "--filesystem=home:ro",
+    "--filesystem=home:rw",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
   "add-extensions": {
