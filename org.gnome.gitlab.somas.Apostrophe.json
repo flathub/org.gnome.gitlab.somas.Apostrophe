@@ -9,7 +9,7 @@
     "--socket=wayland",
     "--share=ipc",
     "--share=network",
-    "--filesystem=home:ro",
+    "--filesystem=home",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
   "add-extensions":{
@@ -124,7 +124,7 @@
         {
           "type":"git",
           "url":"https://gitlab.gnome.org/somas/apostrophe.git",
-          "commit":"6c26297403affb189bdaafba3759978ab649f872"
+          "commit":"130bbf1851d9cc2a949a23123b1afcce36eba835"
         }
       ],
       "post-install":[
