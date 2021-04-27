@@ -44,8 +44,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/jgm/pandoc/releases/download/2.11.3.1/pandoc-2.11.3.1-linux-amd64.tar.gz",
-          "sha256": "848fd7e6ccfe8a8d5a9ff81ea9b6a3024e8d0e8da6365d304584d93b87da8996"
+          "url": "https://github.com/jgm/pandoc/releases/download/2.11.3.1/pandoc-2.13-linux-amd64.tar.gz",
+          "sha256": "7404aa88a6eb9fbb99d9803b80170a3a546f51959230cc529c66a2ce6b950d4c"
         }
       ]
     },
