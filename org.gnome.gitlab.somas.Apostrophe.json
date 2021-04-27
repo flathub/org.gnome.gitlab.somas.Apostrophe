@@ -35,7 +35,7 @@
     {
       "name": "pandoc",
       "only-arches": [
-        "x86_64"
+        "x86_64", "aarch64"
       ],
       "buildsystem": "simple",
       "build-commands": [
@@ -44,8 +44,15 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/jgm/pandoc/releases/download/2.11.3.1/pandoc-2.13-linux-amd64.tar.gz",
-          "sha256": "7404aa88a6eb9fbb99d9803b80170a3a546f51959230cc529c66a2ce6b950d4c"
+          "url": "https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz",
+          "sha256": "7404aa88a6eb9fbb99d9803b80170a3a546f51959230cc529c66a2ce6b950d4c",
+          "only-arches": ["x86_64"]
+        },
+        {
+          "type": "archive",
+          "url": "https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-arm64.tar.gz",
+          "sha256": "4f87bfe8a0a626ad0e17d26d42e99a1c0ed7d369cca00366c1b3d97525f57db5",
+          "only-arches": ["aarch64"]
         }
       ]
     },
