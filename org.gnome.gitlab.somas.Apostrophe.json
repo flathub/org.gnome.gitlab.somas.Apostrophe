@@ -23,6 +23,46 @@
   },
   "modules": [
     {
+      "name": "libsass",
+      "cleanup": [
+        "*"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/sass/libsass/archive/3.6.4.tar.gz",
+          "sha256": "f9484d9a6df60576e791566eab2f757a97fd414fce01dd41fc0a693ea5db2889"
+        },
+        {
+          "type": "script",
+          "dest-filename": "autogen.sh",
+          "commands": [
+            "autoreconf -si"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sassc",
+      "cleanup": [
+        "*"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/sass/sassc/archive/3.6.1.tar.gz",
+          "sha256": "8cee391c49a102b4464f86fc40c4ceac3a2ada52a89c4c933d8348e3e4542a60"
+        },
+        {
+          "type": "script",
+          "dest-filename": "autogen.sh",
+          "commands": [
+            "autoreconf -si"
+          ]
+        }
+      ]
+    },
+    {
       "name": "gspell",
       "sources": [
         {
@@ -35,7 +75,8 @@
     {
       "name": "pandoc",
       "only-arches": [
-        "x86_64", "aarch64"
+        "x86_64",
+        "aarch64"
       ],
       "buildsystem": "simple",
       "build-commands": [
@@ -116,9 +157,9 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://gitlab.gnome.org/somas/apostrophe.git",
-          "tag": "v2.4",
-          "commit": "7a69b54589c52197b3cf0d98a8bd10ec01741653"
+          "url": "https://gitlab.gnome.org/World/apostrophe.git",
+          "tag": "v2.5",
+          "commit": "666e348c9444241c2c0aa5d0145c0191c61b1481"
         }
       ],
       "post-install": [
