@@ -1,7 +1,7 @@
 {
   "app-id":"org.gnome.gitlab.somas.Apostrophe",
   "runtime":"org.gnome.Platform",
-  "runtime-version":"3.38",
+  "runtime-version":"41",
   "sdk":"org.gnome.Sdk",
   "command":"apostrophe",
   "finish-args":[
@@ -9,7 +9,8 @@
     "--socket=wayland",
     "--share=ipc",
     "--share=network",
-    "--filesystem=home",
+    "--device=dri",
+    "--filesystem=host",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
   "add-extensions":{
@@ -23,16 +24,42 @@
   },
   "modules":[
     {
-      "name":"libhandy",
-      "buildsystem":"meson",
-      "config-opts":[
-        "--buildtype=release"
+      "name": "libsass",
+      "cleanup": [
+        "*"
       ],
-      "sources":[
+      "sources": [
         {
-          "type":"git",
-          "url":"https://gitlab.gnome.org/GNOME/libhandy",
-          "tag":"1.0.3"
+          "type": "archive",
+          "url": "https://github.com/sass/libsass/archive/3.6.4.tar.gz",
+          "sha256": "f9484d9a6df60576e791566eab2f757a97fd414fce01dd41fc0a693ea5db2889"
+        },
+        {
+          "type": "script",
+          "dest-filename": "autogen.sh",
+          "commands": [
+            "autoreconf -si"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sassc",
+      "cleanup": [
+        "*"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/sass/sassc/archive/3.6.1.tar.gz",
+          "sha256": "8cee391c49a102b4464f86fc40c4ceac3a2ada52a89c4c933d8348e3e4542a60"
+        },
+        {
+          "type": "script",
+          "dest-filename": "autogen.sh",
+          "commands": [
+            "autoreconf -si"
+          ]
         }
       ]
     },
@@ -47,19 +74,27 @@
       ]
     },
     {
-      "name":"pandoc",
-      "only-arches":[
-        "x86_64"
+      "name": "pandoc",
+      "only-arches": [
+        "x86_64",
+        "aarch64"
       ],
-      "buildsystem":"simple",
-      "build-commands":[
+      "buildsystem": "simple",
+      "build-commands": [
         "cp bin/pandoc /app/bin/pandoc"
       ],
-      "sources":[
+      "sources": [
         {
-          "type":"archive",
-          "url":"https://github.com/jgm/pandoc/releases/download/2.11.3.1/pandoc-2.11.3.1-linux-amd64.tar.gz",
-          "sha256":"848fd7e6ccfe8a8d5a9ff81ea9b6a3024e8d0e8da6365d304584d93b87da8996"
+          "type": "archive",
+          "url": "https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz",
+          "sha256": "7404aa88a6eb9fbb99d9803b80170a3a546f51959230cc529c66a2ce6b950d4c",
+          "only-arches": ["x86_64"]
+        },
+        {
+          "type": "archive",
+          "url": "https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-arm64.tar.gz",
+          "sha256": "4f87bfe8a0a626ad0e17d26d42e99a1c0ed7d369cca00366c1b3d97525f57db5",
+          "only-arches": ["aarch64"]
         }
       ]
     },
@@ -123,8 +158,8 @@
       "sources":[
         {
           "type":"git",
-          "url":"https://gitlab.gnome.org/somas/apostrophe.git",
-          "commit":"130bbf1851d9cc2a949a23123b1afcce36eba835"
+          "url":"https://gitlab.gnome.org/World/apostrophe.git",
+          "commit":"071717c7cb57d97e9f41b3d47eab6b9809ab7bad"
         }
       ],
       "post-install":[
