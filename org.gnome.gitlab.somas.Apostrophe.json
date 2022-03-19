@@ -1,7 +1,7 @@
 {
   "app-id": "org.gnome.gitlab.somas.Apostrophe",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "40",
+  "runtime-version": "41",
   "sdk": "org.gnome.Sdk",
   "command": "apostrophe",
   "finish-args": [
@@ -9,6 +9,7 @@
     "--socket=wayland",
     "--share=ipc",
     "--share=network",
+    "--device=dri",
     "--filesystem=host",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
@@ -22,6 +23,22 @@
     }
   },
   "modules": [
+    {
+            "name": "libhandy",
+            "buildsystem": "meson",
+            "builddir": true,
+            "config-opts": [
+                "-Dexamples=false",
+                "-Dtests=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libhandy.git",
+                    "branch": "main"
+                }
+            ]
+        },
     {
       "name": "libsass",
       "cleanup": [
@@ -158,8 +175,8 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "tag": "v2.5",
-          "commit": "666e348c9444241c2c0aa5d0145c0191c61b1481"
+          "tag": "v2.6",
+          "commit": "f2ef5224bb7d0584efc86f9e76fdf6ac74b87450"
         }
       ],
       "post-install": [
