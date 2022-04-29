@@ -175,8 +175,8 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "tag": "v2.6.2",
-          "commit": "e992cf1f82711000597b2c3052c970726ab257ef"
+          "tag": "v2.6.3",
+          "commit": "0e382ba1636bb9df61775599ad80adedc8596562"
         }
       ],
       "post-install": [
