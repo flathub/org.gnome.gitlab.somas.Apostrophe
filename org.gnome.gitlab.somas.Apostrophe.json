@@ -90,7 +90,10 @@
       "buildsystem": "simple",
       "build-commands": [
         "mkdir -p /app/share/fonts/",
-        "cp ttf/* /app/share/fonts/"
+        "install -D ttf/FiraMono-Regular.ttf /app/share/fonts/",
+        "install -D ttf/FiraMono-Bold.ttf /app/share/fonts/",
+        "install -D ttf/FiraMono-Medium.ttf /app/share/fonts/",
+        "fc-cache -f -v"
       ],
       "sources": [
         {
@@ -107,7 +110,7 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "commit": "37eb2980885c4965e4eb2c55f4b4e6c82a9071dd"
+          "commit": "adcaa6607b196d546a9a3163aa38b5a9954bbc90"
         }
       ],
       "post-install": [
