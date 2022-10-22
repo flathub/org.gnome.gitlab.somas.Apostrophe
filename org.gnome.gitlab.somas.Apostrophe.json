@@ -1,7 +1,7 @@
 {
   "app-id": "org.gnome.gitlab.somas.Apostrophe",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "41",
+  "runtime-version": "42",
   "sdk": "org.gnome.Sdk",
   "command": "apostrophe",
   "finish-args": [
@@ -23,22 +23,6 @@
     }
   },
   "modules": [
-    {
-      "name": "libhandy",
-      "buildsystem": "meson",
-      "builddir": true,
-      "config-opts": [
-        "-Dexamples=false",
-        "-Dtests=false"
-      ],
-      "sources": [
-        {
-          "type": "git",
-          "url": "https://gitlab.gnome.org/GNOME/libhandy.git",
-          "branch": "main"
-        }
-      ]
-    },
     {
       "name": "libsass",
       "cleanup": [
