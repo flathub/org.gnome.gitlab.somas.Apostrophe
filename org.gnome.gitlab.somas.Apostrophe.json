@@ -1,7 +1,7 @@
 {
   "app-id": "org.gnome.gitlab.somas.Apostrophe",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "42",
+  "runtime-version": "44",
   "sdk": "org.gnome.Sdk",
   "command": "apostrophe",
   "finish-args": [
@@ -11,7 +11,13 @@
     "--share=network",
     "--device=dri",
     "--filesystem=host",
-    "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
+      "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/:/app/extensions/TexLive/2018/bin/aarch64-linux/"
+  ],
+  "cleanup": [
+      "/lib/pkgconfig",
+      "/share/vala",
+      "/share/gir-1.0",
+      "/share/gtk-doc"
   ],
   "add-extensions": {
     "org.gnome.gitlab.somas.Apostrophe.Plugin": {
@@ -75,10 +81,6 @@
     },
     {
       "name": "pandoc",
-      "only-arches": [
-        "x86_64",
-        "aarch64"
-      ],
       "buildsystem": "simple",
       "build-commands": [
         "cp bin/pandoc /app/bin/pandoc"
@@ -161,6 +163,10 @@
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
           "tag": "v2.6.3",
           "commit": "0e382ba1636bb9df61775599ad80adedc8596562"
+        },
+        {
+          "type": "patch",
+          "path": "apostrophe-webkit.patch"
         }
       ],
       "post-install": [
