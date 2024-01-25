@@ -1,0 +1,82 @@
+{
+    "name": "python3-modules",
+    "buildsystem": "simple",
+    "build-commands": [],
+    "modules": [
+        {
+            "name": "python3-regex",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"regex\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/4f/1d/6998ba539616a4c8f58b07fd7c9b90c6b0f0c0ecbe8db69095a6079537a7/regex-2023.8.8.tar.gz",
+                    "sha256": "fcbdc5f2b0f1cd0f6a56cdb46fe41d2cce1e644e3b68832f3eeebc5fb0f7712e",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "regex"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "python3-pypandoc",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pypandoc\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/59/ac/1380f19d6bab8772b4e40d881091039a8c592d66382bd4c865fa21373bad/pypandoc-1.11-py3-none-any.whl",
+                    "sha256": "b260596934e9cfc6513056110a7c8600171d414f90558bf4407e68b209be8007",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "pypandoc",
+                        "packagetype": "bdist_wheel"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "python3-chardet",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"chardet\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl",
+                    "sha256": "e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "chardet",
+                        "packagetype": "bdist_wheel"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "python3-pyenchant",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pyenchant\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/54/4c/a741dddab6ad96f257d90cb4d23067ffadac526c9cab3a99ca6ce3c05477/pyenchant-3.2.2-py3-none-any.whl",
+                    "sha256": "5facc821ece957208a81423af7d6ec7810dad29697cb0d77aae81e4e11c8e5a6",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "pyenchant",
+                        "packagetype": "bdist_wheel"
+                    }
+                }
+            ]
+        }
+    ]
+}
