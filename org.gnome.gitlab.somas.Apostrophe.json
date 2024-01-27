@@ -1,7 +1,7 @@
 {
   "app-id": "org.gnome.gitlab.somas.Apostrophe",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "43",
+  "runtime-version": "master",
   "sdk": "org.gnome.Sdk",
   "command": "apostrophe",
   "finish-args": [
@@ -25,9 +25,6 @@
   "modules": [
     {
       "name": "pandoc",
-      "only-arches": [
-        "x86_64"
-      ],
       "buildsystem": "simple",
       "build-commands": [
         "mkdir /app/bin",
@@ -36,60 +33,43 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-linux-amd64.tar.gz",
-          "sha256": "9d55c7afb6a244e8a615451ed9cb02e6a6f187ad4d169c6d5a123fa74adb4830"
+          "archive-type": "tar-gzip",
+          "url": "https://github.com/jgm/pandoc/releases/download/3.1.8/pandoc-3.1.8-linux-amd64.tar.gz",
+          "sha512": "d09fac84c6bba940cc9a57e70c72cce107032d404a33a284687d607baf862bfadae58e8888c326fafb330e1e22a14cdc120d015a17a5dc8dbf795603af0436bf",
+          "only-arches": [
+            "x86_64"
+          ],
+          "x-checker-data": {
+            "type": "json",
+            "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
+            "version-query": ".tag_name",
+            "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-amd64.tar.gz\") | .browser_download_url"
+          }
+        },
+        {
+          "type": "archive",
+          "archive-type": "tar-gzip",
+          "url": "https://github.com/jgm/pandoc/releases/download/3.1.8/pandoc-3.1.8-linux-arm64.tar.gz",
+          "sha512": "4f5d4c643e859d3a77faf48992aa64bef898da76312c4cbbb6cab5f772e5ab8085767938cfa50cb778078dfb4a4cdcf5073fbba6c3941305563b61e920c21a35",
+          "only-arches": [
+            "aarch64"
+          ],
+          "x-checker-data": {
+            "type": "json",
+            "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
+            "version-query": ".tag_name",
+            "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-arm64.tar.gz\") | .browser_download_url"
+          }
         }
       ]
     },
+    "python3-modules.json",
     {
-      "name": "pipdeps",
-      "buildsystem": "simple",
-      "build-commands": [
-        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} regex pypandoc chardet"
-      ],
-      "sources": [
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/c0/6c/9f840c2e55b67b90745af06a540964b73589256cb10cc10057c87ac78fc2/wheel-0.37.1.tar.gz",
-          "sha256": "e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/4b/30/e15b806597e67057e07a5acdc135216ccbf76a5f1681a324533b61066b0b/pip-22.2.2.tar.gz",
-          "sha256": "3fd1929db052f056d7a998439176d3333fa1b3f6c1ad881de1885c0717608a4b"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/cf/14/35d1a15f8b9b7cdc982c2322b89d43eebeab8f7eec431ff9846768a9d34b/pypandoc-1.9.tar.gz",
-          "sha256": "dbd6208ff1ff923072f53307926e8c40c71a9c8ba84e1b665e6cd011bebd4c07"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/f8/43/b85d103acc0bfb54939f801908bf83354085579e8422eeaa22c017950c02/regex-2022.9.13.tar.gz",
-          "sha256": "f07373b6e56a6f3a0df3d75b651a278ca7bd357a796078a26a958ea1ce0588fd"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/b1/a3/86763b6350727ca81c8fcc5bb5bccee416e902e0085dc7a902c81233717e/pyenchant-3.2.2.tar.gz",
-          "sha256": "1cf830c6614362a78aab78d50eaf7c6c93831369c52e1bb64ffae1df0341e637"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/27/ba/611a561ef300abdae81a576445334fb7a41e62c295b050338a4f54fa76d4/poetry-core-1.2.0.tar.gz",
-          "sha256": "ceccec95487e46c63a41761fbac5211b809bca22658e25a049f4c7da96269f71"
-        },
-        {
-          "type": "file",
-          "url": "https://files.pythonhosted.org/packages/31/a2/12c090713b3d0e141f367236d3a8bdc3e5fca0d83ff3647af4892c16c205/chardet-5.0.0.tar.gz",
-          "sha256": "0368df2bfd78b5fc20572bb4e9bb7fb53e2c094f60ae9993339e8671d0afb8aa"
-        }
-      ]
-    },
-    {
-      "name": "fonts",
+      "name": "fira",
       "buildsystem": "simple",
       "build-commands": [
         "mkdir -p /app/share/fonts/",
+        "install -D ttf/FiraSans-Regular.ttf /app/share/fonts/",
         "install -D ttf/FiraMono-Regular.ttf /app/share/fonts/",
         "install -D ttf/FiraMono-Bold.ttf /app/share/fonts/",
         "install -D ttf/FiraMono-Medium.ttf /app/share/fonts/",
@@ -97,20 +77,50 @@
       ],
       "sources": [
         {
-          "type": "git",
-          "url": "https://github.com/mozilla/Fira",
-          "tag": "4.202"
+          "type": "archive",
+          "archive-type": "tar-gzip",
+          "url": "https://api.github.com/repos/mozilla/Fira/tarball/4.202",
+          "sha512": "ab9f00c7290aa252448b0730cecccfea07cd99daec09883d261cc49b88b1dadd13e951511517a359646ebd94e6cd13861f468437d26465a079cf2b86ab999356",
+          "x-checker-data": {
+            "type": "json",
+            "url": "https://api.github.com/repos/mozilla/Fira/releases/latest",
+            "version-query": ".tag_name",
+            "url-query": ".tarball_url"
+          }
+        }
+      ]
+    },
+    {
+      "name": "revealjs",
+      "buildsystem": "simple",
+      "build-commands": [
+        "mkdir -p /app/share/apostrophe/libs/reveal.js/",
+        "cp -r * /app/share/apostrophe/libs/reveal.js/"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "archive-type": "tar-gzip",
+          "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/4.6.0",
+          "sha512": "96d6839264ba7b26fa281ca8b3c881dccc43e8338eaf397685a46885bd2685d301def9c33bfac65b46dfe35b51edd27df84f195ff01fb2993ebc43dd0017b4e2",
+          "x-checker-data": {
+            "type": "json",
+            "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
+            "version-query": ".tag_name",
+            "url-query": ".tarball_url"
+          }
         }
       ]
     },
     {
       "name": "apostrophe",
+      "builddir": true,
       "buildsystem": "meson",
       "sources": [
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "commit": "adcaa6607b196d546a9a3163aa38b5a9954bbc90"
+          "commit": "a505a7160951e35bceda752bdbe534dcd210ac1a"
         }
       ],
       "post-install": [
