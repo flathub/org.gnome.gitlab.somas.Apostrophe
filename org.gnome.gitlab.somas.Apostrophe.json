@@ -11,6 +11,9 @@
     "--share=network",
     "--device=dri",
     "--filesystem=host",
+    "--filesystem=xdg-run/gvfsd",
+    "--talk-name=org.gtk.vfs",
+    "--talk-name=org.gtk.vfs.*",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
   "add-extensions": {
@@ -113,6 +116,37 @@
       ]
     },
     {
+      "name": "sourceview",
+      "buildsystem": "meson",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/gtksourceview/5.12/gtksourceview-5.12.0.tar.xz",
+          "sha256": "daf32ff5d3150d6385917d3503a85b9e047ba158b2b03079314c9c00813fa01f"
+        },
+        {
+          "type": "patch",
+          "path": "sourceview_text_commits.patch"
+        }
+      ]
+    },
+    {
+      "name": "libspelling",
+      "buildsystem": "meson",
+      "config-opts": ["-Ddocs=false", "-Dvapi=false"],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/libspelling/0.2/libspelling-0.2.1.tar.xz",
+          "sha256": "7a787b467bd493f6baffb44138dbc4bef78aaab60efb76a7db88b243bf0f6343"
+        },
+        {
+          "type": "patch",
+          "path": "libspelling_text_commits.patch"
+        }
+      ]
+    },
+    {
       "name": "apostrophe",
       "builddir": true,
       "buildsystem": "meson",
@@ -120,7 +154,7 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "commit": "a505a7160951e35bceda752bdbe534dcd210ac1a"
+          "commit": "c580ae287e4d1baaad89e36d1a382be99605797c"
         }
       ],
       "post-install": [
