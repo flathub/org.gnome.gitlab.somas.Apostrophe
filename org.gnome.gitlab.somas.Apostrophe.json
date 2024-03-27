@@ -12,7 +12,6 @@
     "--device=dri",
     "--filesystem=host",
     "--filesystem=xdg-run/gvfsd",
-    "--talk-name=org.gtk.vfs",
     "--talk-name=org.gtk.vfs.*",
     "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/"
   ],
