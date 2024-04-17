@@ -153,7 +153,7 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "commit": "94c4046b6eea7550ebe759f224ae2a154b457264"
+          "commit": "0da579c017726eebbeb770758a64b48ce2ccbdca"
         }
       ],
       "post-install": [
