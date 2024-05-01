@@ -1,0 +1,245 @@
+diff --git a/gtksourceview/gtksourcebuffer.c b/gtksourceview/gtksourcebuffer.c
+index 04c5c2d4..407b69f2 100644
+--- a/gtksourceview/gtksourcebuffer.c
++++ b/gtksourceview/gtksourcebuffer.c
+@@ -172,8 +172,22 @@ typedef struct
+ 	guint highlight_syntax : 1;
+ 	guint highlight_brackets : 1;
+ 	guint implicit_trailing_newline : 1;
++
++	GArray                 *commit_funcs;
++	guint                   next_commit_handler;
+ } GtkSourceBufferPrivate;
+ 
++typedef struct
++{
++  GtkSourceBufferCommitFunc before_insert_text;
++  GtkSourceBufferCommitFunc after_insert_text;
++  GtkSourceBufferCommitFunc before_delete_range;
++  GtkSourceBufferCommitFunc after_delete_range;
++  gpointer user_data;
++  GDestroyNotify user_data_destroy;
++  guint handler_id;
++} CommitHooks;
++
+ static GParamSpec *buffer_properties[N_PROPERTIES];
+ static guint       buffer_signals[N_SIGNALS];
+ 
+@@ -210,6 +224,15 @@ static void gtk_source_buffer_real_highlight_updated   (GtkSourceBuffer    *buff
+                                                         GtkTextIter        *start,
+                                                         GtkTextIter        *end);
+ 
++static void
++clear_commit_func (gpointer data)
++{
++	CommitHooks *hooks = data;
++
++	if (hooks->user_data_destroy)
++		hooks->user_data_destroy (hooks->user_data);
++}
++
+ static void
+ gtk_source_buffer_check_tag_for_spaces (GtkSourceBuffer *buffer,
+                                         GtkSourceTag    *tag)
+@@ -490,6 +513,9 @@ gtk_source_buffer_init (GtkSourceBuffer *buffer)
+ {
+ 	GtkSourceBufferPrivate *priv = gtk_source_buffer_get_instance_private (buffer);
+ 
++	priv->commit_funcs = g_array_new (FALSE, FALSE, sizeof (CommitHooks));
++	g_array_set_clear_func (priv->commit_funcs, clear_commit_func);
++
+ 	priv->highlight_syntax = TRUE;
+ 	priv->highlight_brackets = TRUE;
+ 	priv->bracket_match_state = GTK_SOURCE_BRACKET_MATCH_NONE;
+@@ -551,6 +577,8 @@ gtk_source_buffer_dispose (GObject *object)
+ 		priv->source_marks = NULL;
+ 	}
+ 
++	g_clear_pointer (&priv->commit_funcs, g_array_unref);
++
+ 	G_OBJECT_CLASS (gtk_source_buffer_parent_class)->dispose (object);
+ }
+ 
+@@ -1108,7 +1136,7 @@ gtk_source_buffer_real_insert_text (GtkTextBuffer *buffer,
+ {
+ 	GtkSourceBuffer *source_buffer = (GtkSourceBuffer *)buffer;
+ 	GtkSourceBufferPrivate *priv = gtk_source_buffer_get_instance_private (source_buffer);
+-	gint start_offset;
++	gint start_offset, length;
+ 
+ 	g_return_if_fail (GTK_SOURCE_IS_BUFFER (buffer));
+ 	g_return_if_fail (iter != NULL);
+@@ -1116,7 +1144,16 @@ gtk_source_buffer_real_insert_text (GtkTextBuffer *buffer,
+ 	g_return_if_fail (gtk_text_iter_get_buffer (iter) == buffer);
+ 
+ 	start_offset = gtk_text_iter_get_offset (iter);
++	length = g_utf8_strlen (text, len);
+ 
++	for (guint i = 0; i < priv->commit_funcs->len; i++)
++	{
++		const CommitHooks *hooks = &g_array_index (priv->commit_funcs, CommitHooks, i);
++
++		if (hooks->before_insert_text != NULL)
++			hooks->before_insert_text (source_buffer, start_offset, length, hooks->user_data);
++	
++	}
+ 	/* iter is invalidated when
+ 	 * insertion occurs (because the buffer contents change), but the
+ 	 * default signal handler revalidates it to point to the end of the
+@@ -1129,6 +1166,14 @@ gtk_source_buffer_real_insert_text (GtkTextBuffer *buffer,
+ 	gtk_source_buffer_content_inserted (buffer,
+ 					    start_offset,
+ 					    gtk_text_iter_get_offset (iter));
++
++	for (guint i = 0; i < priv->commit_funcs->len; i++)
++	{
++		const CommitHooks *hooks = &g_array_index (priv->commit_funcs, CommitHooks, i);
++
++		if (hooks->after_insert_text != NULL)
++			hooks->after_insert_text (source_buffer, start_offset, length, hooks->user_data);
++	}
+ }
+ 
+ /* insert_paintable and insert_child_anchor do nothing except notifying
+@@ -1203,8 +1248,24 @@ gtk_source_buffer_real_delete_range (GtkTextBuffer *buffer,
+ 	offset = gtk_text_iter_get_offset (start);
+ 	length = gtk_text_iter_get_offset (end) - offset;
+ 
++	for (guint i = 0; i < priv->commit_funcs->len; i++)
++	{
++		const CommitHooks *hooks = &g_array_index (priv->commit_funcs, CommitHooks, i);
++
++		if (hooks->before_delete_range != NULL)
++			hooks->before_delete_range (source_buffer, offset, length, hooks->user_data);
++	}
++
+ 	GTK_TEXT_BUFFER_CLASS (gtk_source_buffer_parent_class)->delete_range (buffer, start, end);
+ 
++	for (guint i = 0; i < priv->commit_funcs->len; i++)
++	{
++		const CommitHooks *hooks = &g_array_index (priv->commit_funcs, CommitHooks, i);
++
++		if (hooks->after_delete_range != NULL)
++			hooks->after_delete_range (source_buffer, offset, length, hooks->user_data);
++	}
++
+ 	cursor_moved (source_buffer);
+ 
+ 	/* emit text deleted for engines */
+@@ -1675,6 +1736,82 @@ gtk_source_buffer_ensure_highlight (GtkSourceBuffer   *buffer,
+ 	_gtk_source_buffer_update_search_highlight (buffer, start, end, TRUE);
+ }
+ 
++/**
++ * gtk_source_buffer_add_commit_funcs:
++ * @buffer: a #GtkSourceBuffer.
++ * @before_insert_text: (nullable) (scope async): function for before inserting text.
++ * @after_insert_text: (nullable) (scope async): function for after inserting text.
++ * @before_delete_range: (nullable) (scope async): function for before deleting a range.
++ * @after_delete_range: (nullable) (scope async): function for after deleting a range.
++ * @user_data: closure data.
++ * @user_data_destroy: destroy notify for @user_data.
++ *
++ * Adds function callbacks to handle important changes to text
++ * internally within the GtkTextBuffer. You can use these instead
++ * of signals like #GtkTextBuffer::insert-text or
++ * #GtkTextBuffer::delete-range when you want to be sure you're
++ * getting unprocessed changes right before they are committed to
++ * underlying GTK data structures.
++ *
++ * However, this has the requirement that you do not change this
++ * content in any way, only access the information that these events
++ * occurred.
++ *
++ * Returns: a handler-id which can be used with
++ *   gtk_source_buffer_remove_commit_funcs().
++ */
++guint
++gtk_source_buffer_add_commit_funcs (GtkSourceBuffer           *buffer,
++                                    GtkSourceBufferCommitFunc  before_insert_text,
++                                    GtkSourceBufferCommitFunc  after_insert_text,
++                                    GtkSourceBufferCommitFunc  before_delete_range,
++                                    GtkSourceBufferCommitFunc  after_delete_range,
++                                    gpointer                   user_data,
++                                    GDestroyNotify             user_data_destroy)
++{
++  CommitHooks hooks;
++
++  GtkSourceBufferPrivate *priv = gtk_source_buffer_get_instance_private (buffer);
++
++  g_return_val_if_fail (GTK_SOURCE_IS_BUFFER (buffer), 0);
++
++  hooks.before_insert_text = before_insert_text;
++  hooks.after_insert_text = after_insert_text;
++  hooks.after_delete_range = after_delete_range;
++  hooks.before_delete_range = before_delete_range;
++  hooks.user_data = user_data;
++  hooks.user_data_destroy = user_data_destroy;
++  hooks.handler_id = ++priv->next_commit_handler;
++
++  g_array_append_val (priv->commit_funcs, hooks);
++
++  return hooks.handler_id;
++}
++
++void
++gtk_source_buffer_remove_commit_funcs (GtkSourceBuffer *buffer,
++                                       guint            commit_funcs_handler)
++{
++  GtkSourceBufferPrivate *priv = gtk_source_buffer_get_instance_private (buffer);
++
++  g_return_if_fail (GTK_SOURCE_IS_BUFFER (buffer));
++  g_return_if_fail (commit_funcs_handler > 0);
++
++  for (guint i = 0; i < priv->commit_funcs->len; i++)
++    {
++      const CommitHooks *hooks = &g_array_index (priv->commit_funcs, CommitHooks, i);
++
++      if (hooks->handler_id == commit_funcs_handler)
++        {
++          g_array_remove_index (priv->commit_funcs, i);
++          return;
++        }
++    }
++
++  g_warning ("Failed to locate commit handler %u", commit_funcs_handler);
++}
++
++
+ /**
+  * gtk_source_buffer_set_style_scheme:
+  * @buffer: a #GtkSourceBuffer.
+diff --git a/gtksourceview/gtksourcebuffer.h b/gtksourceview/gtksourcebuffer.h
+index 7906083f..da17a919 100644
+--- a/gtksourceview/gtksourcebuffer.h
++++ b/gtksourceview/gtksourcebuffer.h
+@@ -84,6 +84,11 @@ typedef enum _GtkSourceSortFlags
+ 	GTK_SOURCE_SORT_FLAGS_REMOVE_DUPLICATES = 1 << 2,
+ } GtkSourceSortFlags;
+ 
++typedef void (*GtkSourceBufferCommitFunc) (GtkSourceBuffer *buffer,
++                                           guint            position,
++                                           guint            length,
++                                           gpointer         user_data);
++
+ struct _GtkSourceBufferClass
+ {
+ 	GtkTextBufferClass parent_class;
+@@ -193,6 +198,17 @@ GtkTextTag            *gtk_source_buffer_create_source_tag                     (
+                                                                                 const gchar             *tag_name,
+                                                                                 const gchar             *first_property_name,
+                                                                                 ...);
++GTK_SOURCE_AVAILABLE_IN_ALL
++guint                   gtk_source_buffer_add_commit_funcs                     (GtkSourceBuffer          *buffer,
++                                                                                GtkSourceBufferCommitFunc before_insert_text,
++                                                                                GtkSourceBufferCommitFunc after_insert_text,
++                                                                                GtkSourceBufferCommitFunc before_delete_range,
++                                                                                GtkSourceBufferCommitFunc after_delete_range,
++                                                                                gpointer                  user_data,
++                                                                                GDestroyNotify            user_data_destroy);
++GTK_SOURCE_AVAILABLE_IN_ALL
++void                    gtk_source_buffer_remove_commit_funcs                  (GtkSourceBuffer          *buffer,
++                                                                                guint                     commit_funcs_handler);
+ 
+ 
+ G_END_DECLS
