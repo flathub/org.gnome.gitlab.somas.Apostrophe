@@ -1,171 +1,174 @@
 {
-  "app-id": "org.gnome.gitlab.somas.Apostrophe",
-  "runtime": "org.gnome.Platform",
-  "runtime-version": "46",
-  "sdk": "org.gnome.Sdk",
-  "command": "apostrophe",
-  "finish-args": [
-    "--socket=fallback-x11",
-    "--socket=wayland",
-    "--share=ipc",
-    "--share=network",
-    "--device=dri",
-    "--filesystem=host",
-    "--filesystem=xdg-run/gvfsd",
-    "--talk-name=org.gtk.vfs.*",
-      "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/:/app/extensions/TexLive/2018/bin/aarch64-linux/"
-  ],
-  "cleanup": [
-      "/lib/pkgconfig",
-      "/share/vala",
-      "/share/gir-1.0",
-      "/share/gtk-doc"
-  ],
-  "add-extensions": {
-    "org.gnome.gitlab.somas.Apostrophe.Plugin": {
-      "directory": "extensions",
-      "version": "stable",
-      "subdirectories": true,
-      "no-autodownload": true,
-      "autodelete": true
-    }
-  },
-  "modules": [
-    {
-      "name": "pandoc",
-      "buildsystem": "simple",
-      "build-commands": [
-        "mkdir /app/bin",
-        "cp bin/pandoc /app/bin/pandoc"
-      ],
-      "sources": [
+    "app-id": "org.gnome.gitlab.somas.Apostrophe",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "46",
+    "sdk": "org.gnome.Sdk",
+    "command": "apostrophe",
+    "finish-args": [
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--share=ipc",
+        "--share=network",
+        "--device=dri",
+        "--filesystem=host",
+        "--filesystem=xdg-run/gvfsd",
+        "--talk-name=org.gtk.vfs.*",
+        "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/:/app/extensions/TexLive/2018/bin/aarch64-linux/"
+    ],
+    "cleanup": [
+        "/lib/pkgconfig",
+        "/share/vala",
+        "/share/gir-1.0",
+        "/share/gtk-doc"
+    ],
+    "add-extensions": {
+        "org.gnome.gitlab.somas.Apostrophe.Plugin": {
+            "directory": "extensions",
+            "version": "stable",
+            "subdirectories": true,
+            "no-autodownload": true,
+            "autodelete": true
+        }
+    },
+    "modules": [
         {
-          "type": "archive",
-          "archive-type": "tar-gzip",
-          "url": "https://github.com/jgm/pandoc/releases/download/3.1.8/pandoc-3.1.8-linux-amd64.tar.gz",
-          "sha512": "d09fac84c6bba940cc9a57e70c72cce107032d404a33a284687d607baf862bfadae58e8888c326fafb330e1e22a14cdc120d015a17a5dc8dbf795603af0436bf",
-          "only-arches": [
-            "x86_64"
-          ],
-          "x-checker-data": {
-            "type": "json",
-            "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
-            "version-query": ".tag_name",
-            "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-amd64.tar.gz\") | .browser_download_url"
-          }
+            "name": "pandoc",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir /app/bin",
+                "cp bin/pandoc /app/bin/pandoc"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "archive-type": "tar-gzip",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-amd64.tar.gz",
+                    "sha512": "b38ca8b7c51117051de235a937bf50382ca831e68f190503c3526261920c4568f963400c1953247495d18782f5b0d864085621965a11750255b508ba7779ccaa",
+                    "only-arches": [
+                        "x86_64"
+                    ],
+                    "x-checker-data": {
+                        "type": "json",
+                        "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
+                        "version-query": ".tag_name",
+                        "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-amd64.tar.gz\") | .browser_download_url"
+                    }
+                },
+                {
+                    "type": "archive",
+                    "archive-type": "tar-gzip",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-arm64.tar.gz",
+                    "sha512": "954c7b267d67566da8c613f866c82b3a2e6d65e42f261f07ffa486a0e2c4095b3320cee637aecfa297e7abd81e118fcfe0e05d04870bc23219c0a3154c96e15a",
+                    "only-arches": [
+                        "aarch64"
+                    ],
+                    "x-checker-data": {
+                        "type": "json",
+                        "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
+                        "version-query": ".tag_name",
+                        "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-arm64.tar.gz\") | .browser_download_url"
+                    }
+                }
+            ]
+        },
+        "python3-modules.json",
+        {
+            "name": "fira",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/share/fonts/",
+                "install -D ttf/FiraSans-Regular.ttf /app/share/fonts/",
+                "install -D ttf/FiraMono-Regular.ttf /app/share/fonts/",
+                "install -D ttf/FiraMono-Bold.ttf /app/share/fonts/",
+                "install -D ttf/FiraMono-Medium.ttf /app/share/fonts/",
+                "fc-cache -f -v"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "archive-type": "tar-gzip",
+                    "url": "https://api.github.com/repos/mozilla/Fira/tarball/4.202",
+                    "sha512": "ab9f00c7290aa252448b0730cecccfea07cd99daec09883d261cc49b88b1dadd13e951511517a359646ebd94e6cd13861f468437d26465a079cf2b86ab999356",
+                    "x-checker-data": {
+                        "type": "json",
+                        "url": "https://api.github.com/repos/mozilla/Fira/releases/latest",
+                        "version-query": ".tag_name",
+                        "url-query": ".tarball_url"
+                    }
+                }
+            ]
         },
         {
-          "type": "archive",
-          "archive-type": "tar-gzip",
-          "url": "https://github.com/jgm/pandoc/releases/download/3.1.8/pandoc-3.1.8-linux-arm64.tar.gz",
-          "sha512": "4f5d4c643e859d3a77faf48992aa64bef898da76312c4cbbb6cab5f772e5ab8085767938cfa50cb778078dfb4a4cdcf5073fbba6c3941305563b61e920c21a35",
-          "only-arches": [
-            "aarch64"
-          ],
-          "x-checker-data": {
-            "type": "json",
-            "url": "https://api.github.com/repos/jgm/pandoc/releases/latest",
-            "version-query": ".tag_name",
-            "url-query": ".assets[] | select(.name==\"pandoc-\" + $version + \"-linux-arm64.tar.gz\") | .browser_download_url"
-          }
-        }
-      ]
-    },
-    "python3-modules.json",
-    {
-      "name": "fira",
-      "buildsystem": "simple",
-      "build-commands": [
-        "mkdir -p /app/share/fonts/",
-        "install -D ttf/FiraSans-Regular.ttf /app/share/fonts/",
-        "install -D ttf/FiraMono-Regular.ttf /app/share/fonts/",
-        "install -D ttf/FiraMono-Bold.ttf /app/share/fonts/",
-        "install -D ttf/FiraMono-Medium.ttf /app/share/fonts/",
-        "fc-cache -f -v"
-      ],
-      "sources": [
-        {
-          "type": "archive",
-          "archive-type": "tar-gzip",
-          "url": "https://api.github.com/repos/mozilla/Fira/tarball/4.202",
-          "sha512": "ab9f00c7290aa252448b0730cecccfea07cd99daec09883d261cc49b88b1dadd13e951511517a359646ebd94e6cd13861f468437d26465a079cf2b86ab999356",
-          "x-checker-data": {
-            "type": "json",
-            "url": "https://api.github.com/repos/mozilla/Fira/releases/latest",
-            "version-query": ".tag_name",
-            "url-query": ".tarball_url"
-          }
-        }
-      ]
-    },
-    {
-      "name": "revealjs",
-      "buildsystem": "simple",
-      "build-commands": [
-        "mkdir -p /app/share/apostrophe/libs/reveal.js/",
-        "cp -r * /app/share/apostrophe/libs/reveal.js/"
-      ],
-      "sources": [
-        {
-          "type": "archive",
-          "archive-type": "tar-gzip",
-          "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/4.6.0",
-          "sha512": "96d6839264ba7b26fa281ca8b3c881dccc43e8338eaf397685a46885bd2685d301def9c33bfac65b46dfe35b51edd27df84f195ff01fb2993ebc43dd0017b4e2",
-          "x-checker-data": {
-            "type": "json",
-            "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
-            "version-query": ".tag_name",
-            "url-query": ".tarball_url"
-          }
-        }
-      ]
-    },
-    {
-      "name": "sourceview",
-      "buildsystem": "meson",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/gtksourceview/5.12/gtksourceview-5.12.0.tar.xz",
-          "sha256": "daf32ff5d3150d6385917d3503a85b9e047ba158b2b03079314c9c00813fa01f"
+            "name": "revealjs",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/share/apostrophe/libs/reveal.js/",
+                "cp -r * /app/share/apostrophe/libs/reveal.js/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "archive-type": "tar-gzip",
+                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.1.0",
+                    "sha512": "5e1651966f07fa9622124c0acac90ef1640909f4414622816bb96e94ea10a30e2a3aa1af14b1c61e1fe2ad74a10a8ef88a16d5abb4ebacafef278e2429502578",
+                    "x-checker-data": {
+                        "type": "json",
+                        "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
+                        "version-query": ".tag_name",
+                        "url-query": ".tarball_url"
+                    }
+                }
+            ]
         },
         {
-          "type": "patch",
-          "path": "sourceview_text_commits.patch"
-        }
-      ]
-    },
-    {
-      "name": "libspelling",
-      "buildsystem": "meson",
-      "config-opts": ["-Ddocs=false", "-Dvapi=false"],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/libspelling/0.2/libspelling-0.2.1.tar.xz",
-          "sha256": "7a787b467bd493f6baffb44138dbc4bef78aaab60efb76a7db88b243bf0f6343"
+            "name": "sourceview",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gtksourceview/5.12/gtksourceview-5.12.0.tar.xz",
+                    "sha256": "daf32ff5d3150d6385917d3503a85b9e047ba158b2b03079314c9c00813fa01f"
+                },
+                {
+                    "type": "patch",
+                    "path": "sourceview_text_commits.patch"
+                }
+            ]
         },
         {
-          "type": "patch",
-          "path": "libspelling_text_commits.patch"
-        }
-      ]
-    },
-    {
-      "name": "apostrophe",
-      "builddir": true,
-      "buildsystem": "meson",
-      "sources": [
+            "name": "libspelling",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Ddocs=false",
+                "-Dvapi=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/libspelling/0.2/libspelling-0.2.1.tar.xz",
+                    "sha256": "7a787b467bd493f6baffb44138dbc4bef78aaab60efb76a7db88b243bf0f6343"
+                },
+                {
+                    "type": "patch",
+                    "path": "libspelling_text_commits.patch"
+                }
+            ]
+        },
         {
-          "type": "git",
-          "url": "https://gitlab.gnome.org/World/apostrophe.git",
-          "tag": "v3.1",
-          "commit": "401ea19828269218451896a96d1db8a017816028"
+            "name": "apostrophe",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/World/apostrophe.git",
+                    "tag": "v3.1",
+                    "commit": "401ea19828269218451896a96d1db8a017816028"
+                }
+            ],
+            "post-install": [
+                "install -d /app/extensions"
+            ]
         }
-      ],
-      "post-install": [
-        "install -d /app/extensions"
-      ]
-    }
-  ]
+    ]
 }
