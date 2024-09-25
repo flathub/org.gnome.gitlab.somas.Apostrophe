@@ -1,7 +1,7 @@
 {
     "app-id": "org.gnome.gitlab.somas.Apostrophe",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "46",
+    "runtime-version": "47",
     "sdk": "org.gnome.Sdk",
     "command": "apostrophe",
     "finish-args": [
@@ -11,8 +11,8 @@
         "--share=network",
         "--device=dri",
         "--filesystem=host",
-        "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfsd",
         "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/:/app/extensions/TexLive/2018/bin/aarch64-linux/"
     ],
     "cleanup": [
@@ -162,8 +162,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/World/apostrophe.git",
-                    "tag": "v3.1",
-                    "commit": "401ea19828269218451896a96d1db8a017816028"
+                    "tag": "v3.2",
+                    "commit": "a827a4c30e35c0fbdd176c9fc61ba06f3291a9a8"
                 }
             ],
             "post-install": [
