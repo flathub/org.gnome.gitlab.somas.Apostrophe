@@ -30,8 +30,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/fc/09/91ab02feebc195a39ce0a39edcafbe866e69ff700a59790e605b3d5f69b1/pypandoc-1.13-py3-none-any.whl",
-                    "sha256": "4c7d71bf2f1ed122aac287113b5c4d537a33bbc3c1df5aed11a7d4a7ac074681",
+                    "url": "https://files.pythonhosted.org/packages/ff/bd/cf1dd70b95f3366f3c457c5259ed8f032122210441407b6ed281d7fcbb8c/pypandoc-1.14-py3-none-any.whl",
+                    "sha256": "1315c7ad7fac7236dacf69a05b521ed2c3f1d0177f70e9b92bfffce6c023df22",
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "pypandoc",
