@@ -42,8 +42,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-amd64.tar.gz",
-                    "sha512": "b38ca8b7c51117051de235a937bf50382ca831e68f190503c3526261920c4568f963400c1953247495d18782f5b0d864085621965a11750255b508ba7779ccaa",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-linux-amd64.tar.gz",
+                    "sha512": "ecfc11b743344fdcd30db31c008ea9456b6f25255d7295ef84b64faaf7c944edee9241823157158ba81628cdb861f2e6de800b143f45cc56a4bae44594258bea",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -57,8 +57,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-arm64.tar.gz",
-                    "sha512": "954c7b267d67566da8c613f866c82b3a2e6d65e42f261f07ffa486a0e2c4095b3320cee637aecfa297e7abd81e118fcfe0e05d04870bc23219c0a3154c96e15a",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-linux-arm64.tar.gz",
+                    "sha512": "714d5430efe55ee4c94406ef957ff3c8a02bd8728dfe1be7330a9944948d9a6688eac6073229f320b7ec7dfb04df3c0a7aa21c07d53b10adeaa8606b8beba261",
                     "only-arches": [
                         "aarch64"
                     ],
