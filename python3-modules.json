@@ -12,8 +12,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/f9/38/148df33b4dbca3bd069b963acab5e0fa1a9dbd6820f8c322d0dd6faeff96/regex-2024.9.11.tar.gz",
-                    "sha256": "6c188c307e8433bcb63dc1915022deb553b4203a70722fc542c363bf120a01fd",
+                    "url": "https://files.pythonhosted.org/packages/8e/5f/bd69653fbfb76cf8604468d3b4ec4c403197144c7bfe0e6a5fc9e02a07cb/regex-2024.11.6.tar.gz",
+                    "sha256": "7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519",
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "regex"
@@ -30,8 +30,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/fc/09/91ab02feebc195a39ce0a39edcafbe866e69ff700a59790e605b3d5f69b1/pypandoc-1.13-py3-none-any.whl",
-                    "sha256": "4c7d71bf2f1ed122aac287113b5c4d537a33bbc3c1df5aed11a7d4a7ac074681",
+                    "url": "https://files.pythonhosted.org/packages/61/06/0763e0ccc81754d3eadb21b2cb86cf21bdedc9b52698c2ad6785db7f0a4e/pypandoc-1.15-py3-none-any.whl",
+                    "sha256": "4ededcc76c8770f27aaca6dff47724578428eca84212a31479403a9731fc2b16",
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "pypandoc",
