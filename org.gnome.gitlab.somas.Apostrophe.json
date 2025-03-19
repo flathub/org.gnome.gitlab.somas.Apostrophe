@@ -42,8 +42,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-amd64.tar.gz",
-                    "sha512": "b38ca8b7c51117051de235a937bf50382ca831e68f190503c3526261920c4568f963400c1953247495d18782f5b0d864085621965a11750255b508ba7779ccaa",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz",
+                    "sha512": "62972bbe2b55a039c82b9e26bc9ce55c3ffff0ba4e7eca22338b07a1c3fc7d3064d709d7dee8bd8dac434e850262adea732a376ab1ff8a7dad3b11b2a35012be",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -57,8 +57,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-arm64.tar.gz",
-                    "sha512": "954c7b267d67566da8c613f866c82b3a2e6d65e42f261f07ffa486a0e2c4095b3320cee637aecfa297e7abd81e118fcfe0e05d04870bc23219c0a3154c96e15a",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-arm64.tar.gz",
+                    "sha512": "b2e3d490392690816d8a6388f50ce8022044b1d042519cdf770b0f50f0960d6671d1097ec594a66cc8db990fde4cc3964ee13ead8106e56d3e58578db24577e3",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -109,8 +109,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.1.0",
-                    "sha512": "5e1651966f07fa9622124c0acac90ef1640909f4414622816bb96e94ea10a30e2a3aa1af14b1c61e1fe2ad74a10a8ef88a16d5abb4ebacafef278e2429502578",
+                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.2.0",
+                    "sha512": "f4bd2530736f20d543be48f278001e4d0d3381530e16cd13b208fb418f1ed5d19c8e237ee757906a7a128fa3cc15fb8fa2e70d4755417e3579a65d425e6f5403",
                     "x-checker-data": {
                         "type": "json",
                         "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
