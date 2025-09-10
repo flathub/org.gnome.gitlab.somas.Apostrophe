@@ -16,7 +16,6 @@
         "--filesystem=host",
         "--filesystem=xdg-run/gvfs",
         "--filesystem=xdg-run/gvfsd",
-        "--talk-name=org.gtk.vfs",
         "--talk-name=org.gtk.vfs.*",
         "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/bin/x86_64-linux/:/app/extensions/TexLive/bin/aarch64-linux/"
     ],
