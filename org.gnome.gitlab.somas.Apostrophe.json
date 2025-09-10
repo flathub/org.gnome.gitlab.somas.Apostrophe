@@ -1,8 +1,11 @@
 {
     "app-id": "org.gnome.gitlab.somas.Apostrophe",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "47",
+    "runtime-version": "48",
     "sdk": "org.gnome.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
     "command": "apostrophe",
     "finish-args": [
         "--socket=fallback-x11",
@@ -11,9 +14,11 @@
         "--share=network",
         "--device=dri",
         "--filesystem=host",
-        "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfs",
         "--filesystem=xdg-run/gvfsd",
-        "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/2018/bin/x86_64-linux/:/app/extensions/TexLive/2018/bin/aarch64-linux/"
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*",
+        "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/bin/x86_64-linux/:/app/extensions/TexLive/bin/aarch64-linux/"
     ],
     "cleanup": [
         "/lib/pkgconfig",
@@ -32,18 +37,41 @@
     },
     "modules": [
         {
+            "name": "typst",
+            "buildsystem": "simple",
+            "build-options": {
+                "append-path": "/usr/lib/sdk/rust-stable/bin",
+                "env": {
+                    "CARGO_HOME": "/run/build/typst/cargo",
+                    "CARGO_NET_OFFLINE": "true"
+                }
+            },
+            "build-commands": [
+                "cargo fetch --manifest-path Cargo.toml --verbose",
+                "cargo install --path . --root /app"
+            ],
+            "sources": [
+                "cargo-typst-sources.json",
+                {
+                    "type": "archive",
+                    "archive-type": "tar-gzip",
+                    "url": "https://static.crates.io/crates/typst-cli/typst-cli-0.13.1.crate",
+                    "sha256": "a634de7356f417bb09250a926714f87be71777c26e1f62ce640ca2f38debb683"
+                }
+            ]
+        },
+        {
             "name": "pandoc",
             "buildsystem": "simple",
             "build-commands": [
-                "mkdir /app/bin",
                 "cp bin/pandoc /app/bin/pandoc"
             ],
             "sources": [
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-amd64.tar.gz",
-                    "sha512": "b38ca8b7c51117051de235a937bf50382ca831e68f190503c3526261920c4568f963400c1953247495d18782f5b0d864085621965a11750255b508ba7779ccaa",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8/pandoc-3.8-linux-amd64.tar.gz",
+                    "sha512": "12c6d67f600bb6c9488c8d30194b73f06418911b283ef30e64ffe481e1600ed63bbd47fdddbee175a11ccd5dc11f3557a49400a6e310f465fc0653390efe3caf",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -57,8 +85,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-linux-arm64.tar.gz",
-                    "sha512": "954c7b267d67566da8c613f866c82b3a2e6d65e42f261f07ffa486a0e2c4095b3320cee637aecfa297e7abd81e118fcfe0e05d04870bc23219c0a3154c96e15a",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8/pandoc-3.8-linux-arm64.tar.gz",
+                    "sha512": "4f95c5d2502387167fe677bb496e75d0e6a7fd41c06d79272e57a3f38d331c7378c6fadac5f9dfdfeb4806defa639ebb5fa1dbc9c4c04c87cee6aba9ef109eef",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -77,11 +105,11 @@
             "buildsystem": "simple",
             "build-commands": [
                 "mkdir -p /app/share/fonts/",
-                "install -D ttf/FiraSans-Regular.ttf /app/share/fonts/",
-                "install -D ttf/FiraMono-Regular.ttf /app/share/fonts/",
-                "install -D ttf/FiraMono-Bold.ttf /app/share/fonts/",
-                "install -D ttf/FiraMono-Medium.ttf /app/share/fonts/",
-                "fc-cache -f -v"
+                "install -D otf/FiraSans-Regular.otf /app/share/fonts/",
+                "install -D otf/FiraMono-Regular.otf /app/share/fonts/",
+                "install -D otf/FiraMono-Bold.otf /app/share/fonts/",
+                "install -D otf/FiraMono-Medium.otf /app/share/fonts/",
+                "fc-cache -frv"
             ],
             "sources": [
                 {
@@ -109,29 +137,14 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.1.0",
-                    "sha512": "5e1651966f07fa9622124c0acac90ef1640909f4414622816bb96e94ea10a30e2a3aa1af14b1c61e1fe2ad74a10a8ef88a16d5abb4ebacafef278e2429502578",
+                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.2.1",
+                    "sha512": "4e0de08e6b44348d4c242363d899eb353131b36ab3e83ce24266740edad245210a4ef87550ece50dd95bff1e55ad24d9bcffc6fff600df8bae14424e1ddde2a8",
                     "x-checker-data": {
                         "type": "json",
                         "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
                         "version-query": ".tag_name",
                         "url-query": ".tarball_url"
                     }
-                }
-            ]
-        },
-        {
-            "name": "sourceview",
-            "buildsystem": "meson",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/gtksourceview/5.12/gtksourceview-5.12.0.tar.xz",
-                    "sha256": "daf32ff5d3150d6385917d3503a85b9e047ba158b2b03079314c9c00813fa01f"
-                },
-                {
-                    "type": "patch",
-                    "path": "sourceview_text_commits.patch"
                 }
             ]
         },
@@ -145,12 +158,12 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/libspelling/0.2/libspelling-0.2.1.tar.xz",
-                    "sha256": "7a787b467bd493f6baffb44138dbc4bef78aaab60efb76a7db88b243bf0f6343"
-                },
-                {
-                    "type": "patch",
-                    "path": "libspelling_text_commits.patch"
+                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.9.tar.xz",
+                    "sha256": "d093fd35ae0f1c98fb58876505287fc0a885e47da9d2411d6d7cd595f34d4ebf",
+                    "x-checker-data": {
+                        "type": "gnome",
+                        "name": "libspelling"
+                    }
                 }
             ]
         },
@@ -162,8 +175,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/World/apostrophe.git",
-                    "tag": "v3.2",
-                    "commit": "a827a4c30e35c0fbdd176c9fc61ba06f3291a9a8"
+                    "tag": "v3.3",
+                    "commit": "dba0d0828104e6c8fee5db8dfafbd0c4e21ecac6"
                 }
             ],
             "post-install": [
