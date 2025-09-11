@@ -107,8 +107,7 @@
                 "install -D otf/FiraSans-Regular.otf /app/share/fonts/",
                 "install -D otf/FiraMono-Regular.otf /app/share/fonts/",
                 "install -D otf/FiraMono-Bold.otf /app/share/fonts/",
-                "install -D otf/FiraMono-Medium.otf /app/share/fonts/",
-                "fc-cache -frv"
+                "install -D otf/FiraMono-Medium.otf /app/share/fonts/"
             ],
             "sources": [
                 {
@@ -179,7 +178,8 @@
                 }
             ],
             "post-install": [
-                "install -d /app/extensions"
+                "install -d /app/extensions",
+		        "fc-cache -frv /app/share/fonts"
             ]
         }
     ]
