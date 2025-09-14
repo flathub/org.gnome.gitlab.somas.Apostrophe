@@ -69,8 +69,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz",
-                    "sha512": "e3a64cc47f775fa1456a2a9339ecc47b442181a12cfc94b24453711b7d32d8f3b53d816cc962fe446ba9b3141a6e62e383ba3c7284529977e672480e68e0f8b5",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8/pandoc-3.8-linux-amd64.tar.gz",
+                    "sha512": "12c6d67f600bb6c9488c8d30194b73f06418911b283ef30e64ffe481e1600ed63bbd47fdddbee175a11ccd5dc11f3557a49400a6e310f465fc0653390efe3caf",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -84,8 +84,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-arm64.tar.gz",
-                    "sha512": "dc377e6447439156e41fd12c18ad07881afbe714db0764546f23b201568af612abca620411489235c0b37506651420d955fc3c71c409d4f64af3db2e505f5115",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8/pandoc-3.8-linux-arm64.tar.gz",
+                    "sha512": "4f95c5d2502387167fe677bb496e75d0e6a7fd41c06d79272e57a3f38d331c7378c6fadac5f9dfdfeb4806defa639ebb5fa1dbc9c4c04c87cee6aba9ef109eef",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -179,7 +179,7 @@
             ],
             "post-install": [
                 "install -d /app/extensions",
-		        "fc-cache -frv /app/share/fonts"
+                "fc-cache -frv /app/share/fonts"
             ]
         }
     ]
