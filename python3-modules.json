@@ -12,8 +12,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/b2/5a/4c63457fbcaf19d138d72b2e9b39405954f98c0349b31c601bfcb151582c/regex-2025.9.1.tar.gz",
-                    "sha256": "88ac07b38d20b54d79e704e38aa3bd2c0f8027432164226bdee201a1c0c9c9ff",
+                    "url": "https://files.pythonhosted.org/packages/49/d3/eaa0d28aba6ad1827ad1e716d9a93e1ba963ada61887498297d3da715133/regex-2025.9.18.tar.gz",
+                    "sha256": "c5ba23274c61c6fef447ba6a39333297d0c247f53059dba0bca415cac511edc4",
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "regex"
@@ -68,8 +68,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/54/4c/a741dddab6ad96f257d90cb4d23067ffadac526c9cab3a99ca6ce3c05477/pyenchant-3.2.2-py3-none-any.whl",
-                    "sha256": "5facc821ece957208a81423af7d6ec7810dad29697cb0d77aae81e4e11c8e5a6",
+                    "url": "https://files.pythonhosted.org/packages/38/b0/35926bad6885fb7bc24aa7e1b45e6d86540c6c57ee4abc4fed1ef58d4ec0/pyenchant-3.3.0-py3-none-any.whl",
+                    "sha256": "3da00b1d01314d85aac733bb997415d7a3e875666dc81735ddcf320aa36b7a70",
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "pyenchant",
