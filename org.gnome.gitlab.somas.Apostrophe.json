@@ -1,7 +1,7 @@
 {
     "app-id": "org.gnome.gitlab.somas.Apostrophe",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "48",
+    "runtime-version": "49",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable"
@@ -173,8 +173,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/World/apostrophe.git",
-                    "tag": "v3.3",
-                    "commit": "dba0d0828104e6c8fee5db8dfafbd0c4e21ecac6"
+                    "tag": "v3.4",
+                    "commit": "c045f36e7e089134a0b2c62d85091037e5fcda4e"
                 }
             ],
             "post-install": [
