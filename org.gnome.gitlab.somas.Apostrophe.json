@@ -69,8 +69,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz",
-                    "sha512": "e3a64cc47f775fa1456a2a9339ecc47b442181a12cfc94b24453711b7d32d8f3b53d816cc962fe446ba9b3141a6e62e383ba3c7284529977e672480e68e0f8b5",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8.3/pandoc-3.8.3-linux-amd64.tar.gz",
+                    "sha512": "838786d4b6bc83f8d83c802a5997985f4b82a12fa11fdf846bd27a423b7819175a82ba94f3cfe04dddacad60be840a9e7476b5b91ca0dd8d7bac203e26362302",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -84,8 +84,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-arm64.tar.gz",
-                    "sha512": "dc377e6447439156e41fd12c18ad07881afbe714db0764546f23b201568af612abca620411489235c0b37506651420d955fc3c71c409d4f64af3db2e505f5115",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.8.3/pandoc-3.8.3-linux-arm64.tar.gz",
+                    "sha512": "49156d471c4b4e5009e9471c6b6f984bfc198d28c5c591278acb1a35d26424a1a2d9df8ad8b9d3714ef463fd807dbe3fd6f2919fd2088e6f6bc9458fb5a230b1",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -156,8 +156,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.9.tar.xz",
-                    "sha256": "d093fd35ae0f1c98fb58876505287fc0a885e47da9d2411d6d7cd595f34d4ebf",
+                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+                    "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
                     "x-checker-data": {
                         "type": "gnome",
                         "name": "libspelling"
@@ -179,7 +179,7 @@
             ],
             "post-install": [
                 "install -d /app/extensions",
-		        "fc-cache -frv /app/share/fonts"
+                "fc-cache -frv /app/share/fonts"
             ]
         }
     ]
