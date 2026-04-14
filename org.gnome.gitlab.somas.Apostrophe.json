@@ -174,7 +174,12 @@
                     "type": "git",
                     "url": "https://gitlab.gnome.org/World/apostrophe.git",
                     "tag": "v3.4",
-                    "commit": "c045f36e7e089134a0b2c62d85091037e5fcda4e"
+                    "commit": "c045f36e7e089134a0b2c62d85091037e5fcda4e",
+                    "x-checker-data": {
+                        "is-main-source": true,
+                        "type": "git",
+                        "tag-pattern": "^v([\\d.]+)$"
+                    }
                 }
             ],
             "post-install": [
