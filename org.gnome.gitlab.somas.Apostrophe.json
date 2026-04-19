@@ -69,8 +69,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz",
-                    "sha512": "e3a64cc47f775fa1456a2a9339ecc47b442181a12cfc94b24453711b7d32d8f3b53d816cc962fe446ba9b3141a6e62e383ba3c7284529977e672480e68e0f8b5",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.9.0.2/pandoc-3.9.0.2-linux-amd64.tar.gz",
+                    "sha512": "844a78782d66d2a63e712a5239829cc495f0bacaa8412d89eb2a3f48ece1b99edff3cb2f6a52dc38737583682152eb19e33b0ec647e2a198fcd5685f16330c68",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -84,8 +84,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-arm64.tar.gz",
-                    "sha512": "dc377e6447439156e41fd12c18ad07881afbe714db0764546f23b201568af612abca620411489235c0b37506651420d955fc3c71c409d4f64af3db2e505f5115",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.9.0.2/pandoc-3.9.0.2-linux-arm64.tar.gz",
+                    "sha512": "c42df48081aab247f6769d02224084e8bea58aae49afdea6206f5f648598af964a34c844316fcbebe1ac601bbb469f3d80368d79cd040f6ee2b5e62bd7368314",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -135,8 +135,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.2.1",
-                    "sha512": "4e0de08e6b44348d4c242363d899eb353131b36ab3e83ce24266740edad245210a4ef87550ece50dd95bff1e55ad24d9bcffc6fff600df8bae14424e1ddde2a8",
+                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/6.0.1",
+                    "sha512": "1d59957d0e429164342c24b3f3a939c24cea145fdbfc958566900f950ddde466371c0b3cd1da30d1d32927af4626b3405349600e8ebe25b6b20aae6ad40468ec",
                     "x-checker-data": {
                         "type": "json",
                         "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
@@ -156,8 +156,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.9.tar.xz",
-                    "sha256": "d093fd35ae0f1c98fb58876505287fc0a885e47da9d2411d6d7cd595f34d4ebf",
+                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+                    "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
                     "x-checker-data": {
                         "type": "gnome",
                         "name": "libspelling"
@@ -179,7 +179,7 @@
             ],
             "post-install": [
                 "install -d /app/extensions",
-		        "fc-cache -frv /app/share/fonts"
+                "fc-cache -frv /app/share/fonts"
             ]
         }
     ]
