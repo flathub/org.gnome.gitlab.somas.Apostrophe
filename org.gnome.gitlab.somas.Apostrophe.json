@@ -1,7 +1,7 @@
 {
     "app-id": "org.gnome.gitlab.somas.Apostrophe",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "49",
+    "runtime-version": "51",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable"
@@ -17,7 +17,8 @@
         "--filesystem=xdg-run/gvfs",
         "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gtk.vfs.*",
-        "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/bin/x86_64-linux/:/app/extensions/TexLive/bin/aarch64-linux/"
+        "--env=PATH=/app/bin:/usr/bin:/app/extensions/TexLive/bin/x86_64-linux/:/app/extensions/TexLive/bin/aarch64-linux/",
+        "--env=TYPST_FONT_PATHS=/app/share/fonts"
     ],
     "cleanup": [
         "/lib/pkgconfig",
@@ -54,8 +55,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://static.crates.io/crates/typst-cli/typst-cli-0.13.1.crate",
-                    "sha256": "a634de7356f417bb09250a926714f87be71777c26e1f62ce640ca2f38debb683"
+                    "url": "https://static.crates.io/crates/typst-cli/typst-cli-0.15.1.crate",
+                    "sha256": "d016f07e72530ffd9ab22899a65845d224df28895a9dc8db3551f99959348f55"
                 }
             ]
         },
@@ -69,8 +70,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz",
-                    "sha512": "e3a64cc47f775fa1456a2a9339ecc47b442181a12cfc94b24453711b7d32d8f3b53d816cc962fe446ba9b3141a6e62e383ba3c7284529977e672480e68e0f8b5",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.12/pandoc-3.12-linux-amd64.tar.gz",
+                    "sha512": "30ac9a5b295dfedad7332acf674ca38a607939160ab47b4a6c000df00dbcc9db9a49fadb410ff6023bcb718c989efe656f28a72536040c60c266d15b9d3c6b70",
                     "only-arches": [
                         "x86_64"
                     ],
@@ -84,8 +85,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-arm64.tar.gz",
-                    "sha512": "dc377e6447439156e41fd12c18ad07881afbe714db0764546f23b201568af612abca620411489235c0b37506651420d955fc3c71c409d4f64af3db2e505f5115",
+                    "url": "https://github.com/jgm/pandoc/releases/download/3.12/pandoc-3.12-linux-arm64.tar.gz",
+                    "sha512": "935a06d42b7cdd3bdcdf3b9c39234fda26ffd9f338bee6664909ad650b6fd330bd721d0ef103a94a4eec96ced0e2b2582f2363b3eb428687ac7d51e0ca315c06",
                     "only-arches": [
                         "aarch64"
                     ],
@@ -125,6 +126,20 @@
             ]
         },
         {
+            "name": "noto-sans-cjk-fonts",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -D OTC/NotoSansMonoCJK-VF.otf.ttc /app/share/fonts/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/01_NotoSansCJK-OTF-VF.zip",
+                    "sha256": "d5e33aebad9f8a0c0896a4a29199ef85ca966134db164426c74e83e6f13c43cd"
+                }
+            ]
+        },
+        {
             "name": "revealjs",
             "buildsystem": "simple",
             "build-commands": [
@@ -135,8 +150,8 @@
                 {
                     "type": "archive",
                     "archive-type": "tar-gzip",
-                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/5.2.1",
-                    "sha512": "4e0de08e6b44348d4c242363d899eb353131b36ab3e83ce24266740edad245210a4ef87550ece50dd95bff1e55ad24d9bcffc6fff600df8bae14424e1ddde2a8",
+                    "url": "https://api.github.com/repos/hakimel/reveal.js/tarball/6.0.2",
+                    "sha512": "120e75da66cb159330695ddcafad4cd56314d027fe1272c3c38980d49ed3493ed323e3063fbf5a8718ea4eb90dc23ca3934368654159ea47861ce3dc41899420",
                     "x-checker-data": {
                         "type": "json",
                         "url": "https://api.github.com/repos/hakimel/reveal.js/releases/latest",
@@ -156,8 +171,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.9.tar.xz",
-                    "sha256": "d093fd35ae0f1c98fb58876505287fc0a885e47da9d2411d6d7cd595f34d4ebf",
+                    "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+                    "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
                     "x-checker-data": {
                         "type": "gnome",
                         "name": "libspelling"
@@ -173,8 +188,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/World/apostrophe.git",
-                    "tag": "v3.4",
-                    "commit": "c045f36e7e089134a0b2c62d85091037e5fcda4e",
+                    "tag": "v3.5",
+                    "commit": "52e56c81792b3927e2850acdc6c83e060b64febb",
                     "x-checker-data": {
                         "is-main-source": true,
                         "type": "git",
@@ -184,7 +199,7 @@
             ],
             "post-install": [
                 "install -d /app/extensions",
-		        "fc-cache -frv /app/share/fonts"
+                "fc-cache -frv /app/share/fonts"
             ]
         }
     ]
